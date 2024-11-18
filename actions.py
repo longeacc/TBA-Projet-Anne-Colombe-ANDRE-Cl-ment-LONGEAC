@@ -1,4 +1,4 @@
-HELLO
+"""
 
 Description: The actions module.
 
@@ -16,7 +16,7 @@ Description: The actions module.
 # The MSG0 variable is used when the command does not take any parameter.
 MSG0 = "\nLa commande '{command_word}' ne prend pas de paramètre.\n"
 # The MSG1 variable is used when the command takes 1 parameter.
-MSG1 = "\nLa commande '{command_word}' prend 1 seul paramètre.\n"
+MSG1 = "\nLa commande '{command_word}' prend 1 seul paramètre.\n" """
 
 class Actions:
 
