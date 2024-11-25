@@ -8,7 +8,6 @@ from command import Command
 from actions import Actions
 
 class Game:
-    d="dans"
 
     # Constructor
     def __init__(self):
@@ -29,11 +28,11 @@ class Game:
         go = Command("go", " <direction> : se déplacer dans une direction cardinale (N, E, S, O)", Actions.go, 1)
         self.commands["go"] = go
         
-      
+        # Setup rooms
 
-        forest = Room("Forest", f"{self.d} une forêt enchantée. Vous entendez une brise légère à travers la cime des arbres.")
+        forest = Room("Forest", "dans une forêt enchantée. Vous entendez une brise légère à travers la cime des arbres.")
         self.rooms.append(forest)
-        tower = Room("Tower", f"{self.d} une immense tour en pierre qui s'élève au dessus des nuages.")
+        tower = Room("Tower", "dans une immense tour en pierre qui s'élève au dessus des nuages.")
         self.rooms.append(tower)
         cave = Room("Cave", "dans une grotte profonde et sombre. Des voix semblent provenir des profondeurs.")
         self.rooms.append(cave)
@@ -44,7 +43,7 @@ class Game:
         castle = Room("Castle", "dans un énorme château fort avec des douves et un pont levis. Sur les tours, des flèches en or massif.")
         self.rooms.append(castle)
 
-        # Create exits for rooms
+        # Create exits for rooms(passage interdit/sens unique )
 
         forest.exits = {"N" : cave, "E" : None, "S" : castle, "O" : None}
         tower.exits = {"N" : cottage, "E" : None, "S" : None, "O" : None}
@@ -68,13 +67,14 @@ class Game:
             self.process_command(input("> "))
         return None
 
-    # Process the command entered by the player
+    # Process the command entered by the player (commande vide)
     def process_command(self, command_string) -> None:
-        if command_string=='':
+
+        if command_string=="":
             return
+
         # Split the command string into a list of words
         list_of_words = command_string.split(" ")
-
         command_word = list_of_words[0]
 
         # If the command is not recognized, print an error message
