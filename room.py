@@ -5,11 +5,17 @@ Cette classe définie les méthodes d'entrée et de sortie des différentes sall
 Description détaillée de la classe:
 ** le constructeur : __init__() , il défini l'état de la classe 
 
-liste des attribus de la classe :
+liste des attribus de la classe : 
+** cela correspond à la question : dans quelle salle sommes-nous ? soit les salles allant de {1 à 8}
+**  
 
-liste des méthodes :
+liste des méthodes : 
+** get_exit , elle définit la sortie de la salle 
+** get_long_description(self),
+** get_exit_string ,
 
-liste des exceptions levées par la classe :
+Liste des exceptions levées par la classe :
+Il y a une exception si l'on rencontre un mur ou que l'on ne peut pas sortir de la salle 
 
 des exemples d'utilisations sous forme de doctests : 
 
