@@ -1,5 +1,21 @@
 # Define the Room class.
+"""
+Cette classe définie les méthodes d'entrée et de sortie des différentes salles en ajoutant leurs états à chaques fois
 
+Description détaillée de la classe:
+** le constructeur : __init__() , il défini l'état de la classe 
+
+liste des attribus de la classe :
+
+liste des méthodes :
+
+liste des exceptions levées par la classe :
+
+des exemples d'utilisations sous forme de doctests : 
+
+
+
+"""
 class Room:
 
     # Define the constructor. 

@@ -58,11 +58,8 @@ class Game:
         self.player = Player(input("\nEntrez votre nom: "))
         self.player.current_room = cave1
 
-
-
-
-
-
+        #setup artéfacts 
+        
 
     # Mapping for direction normalisation (utilisation de plusieurs mots clés)
     DIRECTION_MAP = {
@@ -97,8 +94,6 @@ class Game:
             "UP": "U",
             "DOWN": "D",
         }
-
-
 
 
 
