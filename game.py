@@ -8,6 +8,7 @@ from command import Command
 from actions import Actions
 
 class Game:
+    d="dans"
 
     # Constructor
     def __init__(self):
@@ -30,9 +31,9 @@ class Game:
         
       
 
-        forest = Room("Forest", "dans une forêt enchantée. Vous entendez une brise légère à travers la cime des arbres.")
+        forest = Room("Forest", f"{self.d} une forêt enchantée. Vous entendez une brise légère à travers la cime des arbres.")
         self.rooms.append(forest)
-        tower = Room("Tower", "dans une immense tour en pierre qui s'élève au dessus des nuages.")
+        tower = Room("Tower", f"{self.d} une immense tour en pierre qui s'élève au dessus des nuages.")
         self.rooms.append(tower)
         cave = Room("Cave", "dans une grotte profonde et sombre. Des voix semblent provenir des profondeurs.")
         self.rooms.append(cave)
