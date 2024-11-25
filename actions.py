@@ -13,9 +13,9 @@ Description: The actions module.
 
 # The error message is stored in the MSG0 and MSG1 variables and formatted with the command_word variable, the first word in the command.
 # The MSG0 variable is used when the command does not take any parameter.
-MSG0 = "\nLa commande '{command_word}' ne prend pas de paramètre.\n"
+MSG0 = f"\nLa commande '{command_word}' ne prend pas de paramètre.\n"
 # The MSG1 variable is used when the command takes 1 parameter.
-MSG1 = "\nLa commande '{command_word}' prend 1 seul paramètre.\n""""
+MSG1 = f"\nLa commande '{command_word}' prend 1 seul paramètre.\n" """
 
 class Actions:
 
