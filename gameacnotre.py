@@ -36,7 +36,7 @@ class Game:
         cave3 = Room("Cave3", "(salle3) Un murmure étrange semble émaner des murs.")
         cave4 = Room("Cave4", "(salle4) Les quatre torches accrochées aux quatre coins de la pièce vous réchauffent le coeur.")
         cave5 = Room("Cave5", "(salle5) L'air devient plus frais, et un souffle de vent est perceptible.")
-        cave6 = Room("Cave6", "(salle6) Au milieu de nulle part, vous tombez sur une grande armoire. Mais que fait-elle ici")
+        cave6 = Room("Cave6", "(salle6) Au milieu de nulle part, vous tombez sur une grande armoire. Mais que fait-elle ici ?")
         cave7 = Room("Cave7", "(salle7) Vous sentez une odeur de soufre. Une chose est-elle en train de pourrir ?")
         cave8 = Room("Cave8", "(salle8) Un escalier étroit mène vers une pièce avec un tombeau ouvert.")
        
