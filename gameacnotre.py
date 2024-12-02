@@ -159,6 +159,16 @@ class Game:
         #
         print(self.player.current_room.get_long_description())
     
+    # def get_history(self):
+    #         if not self.history:
+    #             return "Vous n'avez encore visité aucune pièce."
+
+    #     # Générer la liste des descriptions des pièces visitées.
+    #         history_descriptions = [room.get_short_description() for room in self.history + "\n"]
+    #         history_text = "Vous avez déjà visité les pièces suivantes :\n" + "\n".join(f"- {desc}" for desc in history_descriptions)
+    #         return history_text
+
+    
 
 def main():
     # Create a game object and play the game
