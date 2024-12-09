@@ -82,28 +82,33 @@ class Actions:
         player = game.player
         l = len(list_of_words)
 
-        if l != number_of_parameters :
+        if l-1 != number_of_parameters :
             command_word = list_of_words[0]
             print(MSG0.format(command_word=command_word))
             return False
 
         # going back to the previous room
-        previous_room = player.history.pop()  # Removed the last room
-        player.current_room = previous_room
-        print(f"\nVous êtes retourné dans la pièce précédente : {previous_room.name}.\n")
+        if not player.history:
+            print("vous avez pas visité")
+        else:
+            previous_room = player.history.pop()  # Removed the last room
+            player.current_room = previous_room
+            print(f"\nVous êtes retourné dans la pièce précédente : {previous_room.name}.\n")
         
          # Showing up the new history
-        history_names = ", ".join(room.name for room in player.history) if player.history else "aucun historique"
-        print(f"\nHistorique des pièces visitées : {history_names}\n")
+            history_names = ", ".join(room.name for room in player.history) if player.history else "aucun historique"
+            print(f"\nHistorique des pièces visitées : {history_names}\n")
+            if hasattr(previous_room, 'exits') and previous_room.exits:
+                exits = [direction for direction, room in previous_room.exits.items() if room]
+                exits_display = ", ".join(exits) if exits else "aucune direction disponible"
+                print(f"Sorties disponibles depuis {previous_room.name} : {exits_display}\n")
+            else:
+                print("Les informations sur les sorties ne sont pas disponibles pour cette pièce.\n")
+
+        
         
 
-        if hasattr(previous_room, 'exits') and previous_room.exits:
-            exits = [direction for direction, room in previous_room.exits.items() if room]
-            exits_display = ", ".join(exits) if exits else "aucune direction disponible"
-            print(f"Sorties disponibles depuis {previous_room.name} : {exits_display}\n")
-        else:
-            print("Les informations sur les sorties ne sont pas disponibles pour cette pièce.\n")
-
+       
         return True
         
         
