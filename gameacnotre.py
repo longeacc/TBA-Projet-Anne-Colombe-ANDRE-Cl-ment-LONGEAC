@@ -49,14 +49,15 @@ class Game:
         cave7 = Room("Cave7", "(salle7) Vous sentez une odeur de soufre. Une chose est-elle en train de pourrir ?")
         cave8 = Room("Cave8", "(salle8) Un escalier étroit mène vers une pièce avec un tombeau ouvert.")
 
-
+        
         # items def 
 
         épee = Item ("épée", " elle vous sera utile pour votre future aventure ! ", 10)
-        self.item.append(épee)
+        
         clef = Item( "clé" ," une clef mais pour ouvrir quoin ?" , 1)
-        self.item.append(clef)
-
+        cave1.inventory.append(clef)
+        
+        
 
        
         # Create exits for rooms(passage interdit/sens unique )

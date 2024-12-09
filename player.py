@@ -6,7 +6,7 @@ class Player():
         self.name = name
         self.current_room = None
         self.history = []
-        self.history= []
+        self.inventory={}
     
 
     # Define the move method.
@@ -43,4 +43,10 @@ class Player():
     
     
     
-    """def back(self):"""
+    def get_inventory(self):
+        if not self.inventory:
+            print("inventor est vide ")
+            return
+        inventory_description=f"\n \t -{item.name}: {item.description} ({item.weight} kg)" for item in self.inventory.values()    
+        return "vous avez comme des intervenai".join(inventory_description)
+        
