@@ -6,6 +6,7 @@ from room import Room
 from player import Player
 from command import Command
 from actions import Actions
+from item import Item
 
 class Game:
 
@@ -15,6 +16,7 @@ class Game:
         self.rooms = []
         self.commands = {}
         self.player = None
+        self.item=[]
     
     # Setup the game
     def setup(self):
@@ -28,7 +30,14 @@ class Game:
         go = Command("go", " <direction> : se déplacer dans une direction cardinale (N, E, S, O, U, D, n, e, s, o, u, d, NORD, EST, SUD, OUEST, UP, DOWN, Nord, Est, Sud, Ouest, Up, Down, nord, est, sud, ouest, up, down )", Actions.go, 1)
         self.commands["go"] = go
         
-      
+        history = Command("history", " : enregistrer l'avancement", Actions.get_history, 0)
+        self.commands["history"] = history
+        
+        back = Command("back", " : revenir dans la pièce précédente", Actions.get_back, 0)  # 🌸
+        self.commands["back"] = back  # 🌸
+
+        item= Command("command", ": quels sont mes outils à dispositions" , Game.__init__,0)
+        self.commands["item"]=item
 
         # Setup rooms
         cave1 = Room("Cave1", "(salle1) Une pièce sombre, humide, avec un léger bruit d'eau gouttant.")
@@ -39,7 +48,16 @@ class Game:
         cave6 = Room("Cave6", "(salle6) Au milieu de nulle part, vous tombez sur une grande armoire. Mais que fait-elle ici ?")
         cave7 = Room("Cave7", "(salle7) Vous sentez une odeur de soufre. Une chose est-elle en train de pourrir ?")
         cave8 = Room("Cave8", "(salle8) Un escalier étroit mène vers une pièce avec un tombeau ouvert.")
-       
+
+
+        # items def 
+
+        épee = Item ("épée", " elle vous sera utile pour votre future aventure ! ", 10)
+        self.item.append(épee)
+        clef = Item( "clé" ," une clef mais pour ouvrir quoin ?" , 1)
+        self.item.append(clef)
+
+
        
         # Create exits for rooms(passage interdit/sens unique )
 
@@ -158,16 +176,6 @@ class Game:
         print("Entrez 'help' si vous avez besoin d'aide.")
         #
         print(self.player.current_room.get_long_description())
-    
-    # def get_history(self):
-    #         if not self.history:
-    #             return "Vous n'avez encore visité aucune pièce."
-
-    #     # Générer la liste des descriptions des pièces visitées.
-    #         history_descriptions = [room.get_short_description() for room in self.history + "\n"]
-    #         history_text = "Vous avez déjà visité les pièces suivantes :\n" + "\n".join(f"- {desc}" for desc in history_descriptions)
-    #         return history_text
-
     
 
 def main():

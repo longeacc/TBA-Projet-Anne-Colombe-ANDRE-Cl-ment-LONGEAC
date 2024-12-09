@@ -35,8 +35,19 @@ class Room:
 
         # Return the room in the given direction if it exists.
         if direction in self.exits.keys():
+     
             return self.exits[direction]
+            
         else:
+            return None
+    def go_back(self):
+        """
+        Retourne à la salle précédente si disponible.
+        """
+        if self.previous_rooms:
+            return self.previous_rooms.pop()  # 🌸
+        else:
+            print("Vous ne pouvez pas revenir en arrière.")
             return None
     
     # Return a string describing the room's exits.
