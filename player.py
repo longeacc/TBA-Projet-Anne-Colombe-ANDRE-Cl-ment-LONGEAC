@@ -39,10 +39,8 @@ class Player():
         print("vous avez déjà visité les pièces suivantes:\n")
         for i in(self.history):
             print("-",i.name)
-        return True 
-        
+        return True       
     
-       
     
     
     """def back(self):"""
