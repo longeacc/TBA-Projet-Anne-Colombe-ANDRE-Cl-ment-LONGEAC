@@ -65,39 +65,46 @@ class Actions:
         return True
         
 
-    def get_back(game, list_of_words, number_of_parameters):
-        """allows to go back in the previous place
+    
+       
         
-        Args:
+    def get_back(game, list_of_words, number_of_parameters):
+        """Permet de retourner dans la pièce précédente.
 
-        game (Game): The game object.
-        list_of_words (list): The list of words in the command.
-        number_of_parameters (int): The number of parameters expected by the command.
+    Args:
+        game (Game): L'objet jeu.
+        list_of_words (list): La liste des mots dans la commande.
+        number_of_parameters (int): Le nombre de paramètres attendu pour la commande.
 
-           
-        Returns:
-            
-        """
-
+    Returns:
+        bool: True si la commande a été exécutée correctement, False sinon.
+    """
         player = game.player
-        l = len(list_of_words)
 
-        if l-1 != number_of_parameters :
+        # Vérification du nombre de paramètres
+        if len(list_of_words) != number_of_parameters :
             command_word = list_of_words[0]
             print(MSG0.format(command_word=command_word))
             return False
 
-        # going back to the previous room
+
+        # Retourner dans la pièce précédente
         if not player.history:
-            print("vous avez pas visité")
+            print("\nVous n'avez pas visité d'autres pièces.")
         else:
-            previous_room = player.history.pop()  # Removed the last room
+            previous_room = player.history.pop()
             player.current_room = previous_room
-            print(f"\nVous êtes retourné dans la pièce précédente : {previous_room.name}.\n")
-        
-         # Showing up the new history
+            print(f"\nVous êtes retourné dans la pièce précédente : {previous_room.name}\n")
+            
+
+            # Ajout de la description complète
+            #print(f"Description complète de {previous_room.name} :\n{previous_room.get_long_description()}\n")
+
+            # Historique mis à jour
             history_names = ", ".join(room.name for room in player.history) if player.history else "aucun historique"
-            print(f"\nHistorique des pièces visitées : {history_names}\n")
+            print(f"Historique des pièces visitées : {history_names}\n")
+
+            # Affichage des sorties disponibles
             if hasattr(previous_room, 'exits') and previous_room.exits:
                 exits = [direction for direction, room in previous_room.exits.items() if room]
                 exits_display = ", ".join(exits) if exits else "aucune direction disponible"
@@ -105,13 +112,8 @@ class Actions:
             else:
                 print("Les informations sur les sorties ne sont pas disponibles pour cette pièce.\n")
 
-        
-        
-
-       
         return True
-        
-        
+   
 
 
 
@@ -208,10 +210,145 @@ class Actions:
             
         """
         player = game.player
+        #if player.history:
+            #print("\nPièces déjà visitées:\n")
+            #for i in player.history:
+                #print ("",i.name)
+        #return True
+
+        
+
+        # Vérifier le nombre de paramètres
+        if len(list_of_words) != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG0.format(command_word=command_word))
+            return False
+
+        # Afficher l'historique des pièces visitées
         if player.history:
-            print("\nPièces déjà visitées:\n")
-            for i in player.history:
-                print ("",i.name)
+            print("\nHistorique des pièces visitées :\n")
+            for room in player.history:
+                print(f"- {room.name} : {room.get_long_description()}\n")
+        else:
+            print("\nVous n'avez pas encore visité de pièce.")
         return True
     
     
+
+    def inventory(game, list_of_words, number_of_parameters):
+        """
+        Display the player's inventory.
+
+        Args:
+            game (Game): The game object.
+            list_of_words (list): The list of words in the command.
+            number_of_parameters (int): The number of parameters expected by the command.
+
+        Returns:
+            bool: True if the command was executed successfully, False otherwise.
+        """
+        l = len(list_of_words)
+        # Vérifie le nombre de paramètres
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG0.format(command_word=command_word))
+            return False
+        
+        # Affiche l'inventaire du joueur
+        player = game.player
+        inventory = player.get_inventory()
+        if inventory:
+            print("\nVotre inventaire contient :")
+            print(inventory)
+        else:
+            print("\nVotre inventaire est vide.")
+        return True
+
+
+    def look(game,list_of_words, number_of_parameters):
+
+        """
+        allows to have a look on a room inventory
+
+        Args:
+            game (Game): The game object.
+            list_of_words (list): The list of words in the command.
+            number_of_parameters (int): The number of parameters expected by the command.
+
+        Returns:
+            bool: True if the command was executed successfully, False otherwise.
+
+
+        """
+
+         # Vérifier le nombre de paramètres
+        if len(list_of_words) != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG0.format(command_word=command_word))
+            return False
+
+        # Afficher la description de la pièce actuelle
+        player = game.player
+        current_room = player.current_room
+        print(current_room.get_long_description())
+
+        # Vérifier et afficher les objets dans la pièce
+        if current_room.item:
+            print("\nVous voyez les objets suivants :")
+            for item_name, item_details in current_room.items.items():
+                print(f"{item_name}: {item_details['description']} (Poids: {item_details['poids']}kg)")
+        else:
+            print("\nIl n'y a aucun objet ici.")
+        return True
+
+
+        # Afficher la description de la pièce
+        #print(self.get_long_description())
+        
+        # Vérifier si des objets sont présents dans la pièce
+        #if self.items:
+            #print("\nVous voyez les objets suivants :")
+            #for item_name, item_details in self.items.items():
+                #print(f"{item_name}: {item_details['description']} (Poids: {item_details['poids']}kg)")
+        #else:
+            #print("\nIl n'y a aucun objet ici.")
+
+    def take(game,list_of_words, number_of_parameters):
+        """
+        allows to take an objet in the inventory of a room and add it into the inventory of the player.
+
+        Args:
+            game (Game): The game object.
+            list_of_words (list): The list of words in the command.
+            number_of_parameters (int): The number of parameters expected by the command.
+
+        Returns:
+            bool: True if the command was executed successfully, False otherwise.
+
+
+        """
+        player = game.player
+        current_room = player.current_room
+
+        # Vérifier le nombre de paramètres
+        if len(list_of_words) != number_of_parameters +2:
+            command_word = list_of_words[0]
+            print(MSG1.format(command_word=command_word))
+            return False
+
+        # Récupérer le nom de l'objet à prendre
+        item_name = list_of_words[1]
+
+        # Vérifier si l'objet est dans la pièce
+        if item_name in current_room.item:
+            # Ajouter l'objet à l'inventaire du joueur
+            player.inventory[item_name] = current_room.item[item_name]
+
+            # Retirer l'objet de la pièce
+            del current_room.item[item_name]
+
+            print(f"\nVous avez pris {item_name} et l'avez ajouté à votre inventaire.")
+            return True
+        else:
+            print(f"\nL'objet '{item_name}' n'est pas présent dans cette pièce.")
+            return False

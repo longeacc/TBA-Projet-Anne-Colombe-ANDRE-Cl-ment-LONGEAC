@@ -1,5 +1,4 @@
 # Description: Game class
-#clement test
 # Import modules
 
 from room import Room
@@ -13,10 +12,11 @@ class Game:
     # Constructor
     def __init__(self):
         self.finished = False
-        self.rooms = []
+        self.room = []
         self.commands = {}
         self.player = None
-        self.item=[]
+        #self.actions = None
+        self.item = []
     
     # Setup the game
     def setup(self):
@@ -32,34 +32,86 @@ class Game:
         
         history = Command("history", " : enregistrer l'avancement", Actions.get_history, 0)
         self.commands["history"] = history
-        
-        back = Command("back", " : revenir dans la pièce précédente", Actions.get_back, 0)  # 🌸
-        self.commands["back"] = back  # 🌸
+        back = Command("back", " :retour dans la pièce précédente", Actions.get_back, 1)
+        self.commands["back"] = back
 
-        item= Command("command", ": quels sont mes outils à dispositions" , Game.__init__,0)
-        self.commands["item"]=item
+        inventory =Command("inventory", " :affiche l'inventaire", Actions.inventory, 0)
+        self.commands["inventory"]=inventory
 
+        take=Command("take", " :prends les items", Actions.take,0)
+        self.commands["take"]=take
+        #drop=Command("drop", " :lâche l'item", Actions.drop, 0)
+        #self.commands["drop"]=drop
+        #check=Command("check", " :reflète les items présents dans l'inventaire du joeur", Actions.check, 0)
+        #self.commands["ckeck"]=check
+        look=Command("look"," :affiche les items présents dans cette pièce", Actions.look,0 )
+        self.commands["look"]=look
+ 
         # Setup rooms
-        cave1 = Room("Cave1", "(salle1) Une pièce sombre, humide, avec un léger bruit d'eau gouttant.")
-        cave2 = Room("Cave2", "(salle2) Vous rampez dans un tunnel dont les murs sont des pics qui vous empêchent de revenir en arrière.")
-        cave3 = Room("Cave3", "(salle3) Un murmure étrange semble émaner des murs.")
-        cave4 = Room("Cave4", "(salle4) Les quatre torches accrochées aux quatre coins de la pièce vous réchauffent le coeur.")
-        cave5 = Room("Cave5", "(salle5) L'air devient plus frais, et un souffle de vent est perceptible.")
-        cave6 = Room("Cave6", "(salle6) Au milieu de nulle part, vous tombez sur une grande armoire. Mais que fait-elle ici ?")
-        cave7 = Room("Cave7", "(salle7) Vous sentez une odeur de soufre. Une chose est-elle en train de pourrir ?")
-        cave8 = Room("Cave8", "(salle8) Un escalier étroit mène vers une pièce avec un tombeau ouvert.")
+       
+        cave1 = Room("cave1", "en Cave1 Une pièce sombre, humide, avec un léger bruit d'eau gouttant.")
+        self.room.append(cave1)
+        cave2 = Room("cave2", "en Cave2 Vous rampez dans un tunnel dont les murs sont des pics qui vous empêchent de revenir en arrière.")
+        self.room.append(cave2)
+        cave3 = Room("cave3", "en Cave3 Un murmure étrange semble émaner des murs.")
+        self.room.append(cave3)
+        cave4 = Room("cave4", "en Cave4 Les quatre torches accrochées aux quatre coins de la pièce vous réchauffent le coeur.")
+        self.room.append(cave4)
+        cave5 = Room("cave5", "en Cave5 L'air devient plus frais, et un souffle de vent est perceptible.")
+        self.room.append(cave5)
+        cave6 = Room("cave6", "en Cave6 Au milieu de nulle part, vous tombez sur une grande armoire. Mais que fait-elle ici ?")
+        self.room.append(cave6)
+        cave7 = Room("cave7", "en Cave7 Vous sentez une odeur de soufre. Une chose est-elle en train de pourrir ?")
+        self.room.append(cave7)
+        cave8 = Room("cave8", "en Cave8 Un escalier étroit mène vers une pièce avec un tombeau ouvert.")
+        self.room.append(cave8)
 
-        
-        # items def 
-
-        épee = Item ("épée", " elle vous sera utile pour votre future aventure ! ", 10)
-        
-        clef = Item( "clé" ," une clef mais pour ouvrir quoin ?" , 1)
-        cave1.inventory.append(clef)
-        
-        
 
        
+        #Setup inventory
+
+        épée = Item("épee", "une épée au fil tranchant comme un rasoir", 5)
+        self.item.append(épée)
+        pieu = Item("pieu", "un pieu en bois plus piquant qu'un porc épic",2)
+        self.item.append(pieu)
+        torche = Item("torche", "une torche pour éclairer votre chemin",1)
+        self.item.append(torche)
+        bouclier = Item("bouclier", "un bouclier robuste et solide",5)
+        self.item.append(bouclier)
+        clé = Item("clé", "une clé mais pour ouvrir quoi ?", 1)
+        self.item.append(clé)
+        pince = ("pince à linge","une pince à linge qui pourrait couper la respiration de n'importe qui",1)
+        self.item.append(pince)
+        pierre = Item("pierre","une grosse pierre pour quoi faire ? Il n'y a personne à lapider...",3)
+        self.item.append(pierre)
+
+
+        # items def  
+
+        épée = Item ("épée", " elle vous sera utile pour votre future aventure ! ", 10) 
+        cave1.inventory.add(épée)
+
+        pieu = Item ( "pieu" ," un pieu en bois plus piquant qu'un porc épic" , 2) 
+        cave2.inventory.add(pieu)
+
+        torche =Item ("torche","une torche pour éclairer votre chemin",1)
+        cave4.inventory.add(torche)
+
+        bouclier = Item ("bouclier","un bouclier robuste et solide",5)
+        cave6.inventory.add(bouclier)
+
+        clé = Item ("clé", "une clé mais pour ouvrir quoi ?", 1)
+        cave6.inventory.add(clé)
+
+        pince = Item ("pince", "une pince à linge qui pourrait couper la respiration de n'importe qui",1)
+        cave3.inventory.add(pince)
+
+        pierre = Item ("pierre", "une grosse pierre pour quoi faire ? Il n'y a personne à lapider...",3)
+        cave7.inventory.add(pierre)
+
+        #cave1.inventory.append(clef) 
+
+
         # Create exits for rooms(passage interdit/sens unique )
 
         cave1.exits = {"N" : cave2, "E" : None, "S" : None, "O" : cave7}
@@ -76,9 +128,6 @@ class Game:
 
         self.player = Player(input("\nEntrez votre nom: "))
         self.player.current_room = cave1
-
-        #setup artéfacts 
-        
 
     # Mapping for direction normalisation (utilisation de plusieurs mots clés)
     DIRECTION_MAP = {
@@ -120,11 +169,12 @@ class Game:
     def play(self):
         self.setup()
         self.print_welcome()
-            # Loop until the game is finished
+        # Loop until the game is finished
         while not self.finished:
             # Get the command from the player
             self.process_command(input("> "))
         return None
+
 
     # Process the command entered by the player (commande vide)
     def process_command(self, command_string) -> None:
@@ -135,10 +185,6 @@ class Game:
         list_of_words = command_string.split(" ")
 
         command_word = list_of_words[0]
-
-
-
-
 
 
          # Normalize direction if 'go' command is used
@@ -161,22 +207,28 @@ class Game:
 
 
 
-
-
         # If the command is not recognized, print an error message
         if command_word not in self.commands.keys():
             print(f"\nCommande '{command_word}' non reconnue. Entrez 'help' pour voir la liste des commandes disponibles.\n")
         # If the command is recognized, execute it
         else:
             command = self.commands[command_word]
-            command.action(self, list_of_words, command.number_of_parameters)
+            command.action(self,list_of_words, command.number_of_parameters)
+        
+
+        if command_word == "look":
+            # call look method
+            self.player.current_room.look()
+            return
 
     # Print the welcome message
     def print_welcome(self):
         print(f"\nBienvenue {self.player.name} dans ce jeu d'aventure !")
         print("Entrez 'help' si vous avez besoin d'aide.")
-        #
         print(self.player.current_room.get_long_description())
+
+
+    
     
 
 def main():

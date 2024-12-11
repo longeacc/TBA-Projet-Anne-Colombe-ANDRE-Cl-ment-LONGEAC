@@ -30,6 +30,7 @@ class Room:
         self.description = description
         self.exits = {}
         self.inventory=set()
+        self.item = {}
         
     # Define the get_exit method.
     def get_exit(self, direction):
@@ -41,15 +42,15 @@ class Room:
             
         else:
             return None
-    def go_back(self):
-        """
-        Retourne à la salle précédente si disponible.
-        """
-        if self.previous_rooms:
-            return self.previous_rooms.pop()  # 🌸
-        else:
-            print("Vous ne pouvez pas revenir en arrière.")
-            return None
+
+
+    
+    # Return a long description of this room including exits.
+    def get_long_description(self):
+        return f"\nVous êtes {self.description}\n\n{self.get_exit_string()}\n"
+        return f"{self.description}\nObjets disponibles : {', '.join(self.items.keys()) if self.items else 'Aucun'}"
+    
+
     
     # Return a string describing the room's exits.
     def get_exit_string(self):
@@ -60,6 +61,28 @@ class Room:
         exit_string = exit_string.strip(", ")
         return exit_string
 
-    # Return a long description of this room including exits.
-    def get_long_description(self):
-        return f"\nVous êtes {self.description}\n\n{self.get_exit_string()}\n"
+
+
+            
+    def get_inventory(self):
+        if not self.inventory:
+            print("inventaire est vide ")
+            return
+
+        "\n".join(f"\t- {item.name}: {item.description} ({item.weight} kg)" for item in self.inventory.values())
+        #inventory_description=f"\n \t -{item.name}: {item.description} ({item.weight} kg)" for item in self.inventory.values()    
+        return "vous avez dans votre inventaire".join(inventory_description)
+
+
+    def look(self):
+        """
+        Affiche la description de la pièce et les objets présents.
+        """
+        
+        print(self.get_long_description())
+        if self.inventory:
+            print("\nVous voyez les objets suivants :")
+            for item in self.inventory:
+                print(f"{item.name}: {item.description} (Poids: {item.weight}kg)")
+        else:
+            print("\nIl n'y a aucun objet ici.")

@@ -45,8 +45,10 @@ class Player():
     
     def get_inventory(self):
         if not self.inventory:
-            print("inventor est vide ")
+            print("inventaire est vide ")
             return
-        inventory_description= f"\n \t -{item.name}: {item.description} ({item.weight} kg)" for item in self.inventory.values()    
-        return "vous avez comme des intervenai".join(inventory_description)
+
+        "\n".join(f"\t- {item.name}: {item.description} ({item.weight} kg)" for item in self.inventory.values())
+        #inventory_description=f"\n \t -{item.name}: {item.description} ({item.weight} kg)" for item in self.inventory.values()    
+        return "vous avez dans votre inventaire".join(inventory_description)
         
