@@ -29,8 +29,9 @@ class Room:
         self.name = name
         self.description = description
         self.exits = {}
-        self.inventory=set()
-        self.item = {}
+        #self.inventory=set()
+
+        self.inventory = {}
         
     # Define the get_exit method.
     def get_exit(self, direction):
@@ -68,9 +69,9 @@ class Room:
         if not self.inventory:
             print("inventaire est vide ")
             return
-
-        "\n".join(f"\t- {item.name}: {item.description} ({item.weight} kg)" for item in self.inventory.values())
-        #inventory_description=f"\n \t -{item.name}: {item.description} ({item.weight} kg)" for item in self.inventory.values()    
+        #f"\n \t -{item.name}: {item.description} ({item.weight} kg)" for item in self.inventory
+        #"\n".join(f"\t- {item.name}: {item.description} ({item.weight} kg)" for item in self.inventory.values())
+        inventory_description="\n".join(f"\t- {item.name}: {item.description} ({item.weight} kg)" for item in self.inventory.values())
         return "vous avez dans votre inventaire".join(inventory_description)
 
 
@@ -82,7 +83,7 @@ class Room:
         print(self.get_long_description())
         if self.inventory:
             print("\nVous voyez les objets suivants :")
-            for item in self.inventory:
+            for item in self.inventory.values():
                 print(f"{item.name}: {item.description} (Poids: {item.weight}kg)")
         else:
             print("\nIl n'y a aucun objet ici.")

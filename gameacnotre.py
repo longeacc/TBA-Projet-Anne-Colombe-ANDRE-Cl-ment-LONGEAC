@@ -1,6 +1,3 @@
-# Description: Game class
-# Import modules
-
 from room import Room
 from player import Player
 from command import Command
@@ -35,17 +32,18 @@ class Game:
         back = Command("back", " :retour dans la pièce précédente", Actions.get_back, 1)
         self.commands["back"] = back
 
-        inventory =Command("inventory", " :affiche l'inventaire", Actions.inventory, 0)
-        self.commands["inventory"]=inventory
+        #inventory =Command("inventory", " :affiche l'inventaire", Actions.inventory, 0)
+        #self.commands["inventory"]=inventory
 
         take=Command("take", " :prends les items", Actions.take,0)
         self.commands["take"]=take
-        #drop=Command("drop", " :lâche l'item", Actions.drop, 0)
-        #self.commands["drop"]=drop
-        #check=Command("check", " :reflète les items présents dans l'inventaire du joeur", Actions.check, 0)
-        #self.commands["ckeck"]=check
+        drop=Command("drop", " :lâche l'item", Actions.drop, 0)
+        self.commands["drop"]=drop
+        check=Command("check", " :reflète les items présents dans l'inventaire du joeur", Actions.check, 0)
+        self.commands["check"]=check
         look=Command("look"," :affiche les items présents dans cette pièce", Actions.look,0 )
         self.commands["look"]=look
+ 
  
         # Setup rooms
        
@@ -70,7 +68,7 @@ class Game:
        
         #Setup inventory
 
-        épée = Item("épee", "une épée au fil tranchant comme un rasoir", 5)
+        épée = Item("épée", "une épée au fil tranchant comme un rasoir", 10)
         self.item.append(épée)
         pieu = Item("pieu", "un pieu en bois plus piquant qu'un porc épic",2)
         self.item.append(pieu)
@@ -89,25 +87,33 @@ class Game:
         # items def  
 
         épée = Item ("épée", " elle vous sera utile pour votre future aventure ! ", 10) 
-        cave1.inventory.add(épée)
+        #cave1.inventory.add(épée)
+        cave1.inventory["épée"]=épée
 
         pieu = Item ( "pieu" ," un pieu en bois plus piquant qu'un porc épic" , 2) 
-        cave2.inventory.add(pieu)
+        #cave2.inventory.add(pieu)
+        cave2.inventory["pieu"]=pieu
 
         torche =Item ("torche","une torche pour éclairer votre chemin",1)
-        cave4.inventory.add(torche)
+        #cave4.inventory.add(torche)
+        cave4.inventory["torche"]=torche
+
 
         bouclier = Item ("bouclier","un bouclier robuste et solide",5)
-        cave6.inventory.add(bouclier)
+        #cave6.inventory.add(bouclier)
+        cave6.inventory["bouclier"]=bouclier
 
         clé = Item ("clé", "une clé mais pour ouvrir quoi ?", 1)
-        cave6.inventory.add(clé)
+        #cave6.inventory.add(clé)
+        cave6.inventory["clé"]=clé
 
         pince = Item ("pince", "une pince à linge qui pourrait couper la respiration de n'importe qui",1)
-        cave3.inventory.add(pince)
+        #cave3.inventory.add(pince)
+        cave3.inventory["pince"]=pince
 
         pierre = Item ("pierre", "une grosse pierre pour quoi faire ? Il n'y a personne à lapider...",3)
-        cave7.inventory.add(pierre)
+        #cave7.inventory.add(pierre)
+        cave7.inventory["pierre"]=pierre
 
         #cave1.inventory.append(clef) 
 

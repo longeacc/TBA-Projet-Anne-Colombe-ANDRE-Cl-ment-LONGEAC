@@ -235,7 +235,7 @@ class Actions:
     
     
 
-    def inventory(game, list_of_words, number_of_parameters):
+    def check(game, list_of_words, number_of_parameters):
         """
         Display the player's inventory.
 
@@ -256,10 +256,9 @@ class Actions:
         
         # Affiche l'inventaire du joueur
         player = game.player
-        inventory = player.get_inventory()
-        if inventory:
+        if player.inventory:
             print("\nVotre inventaire contient :")
-            print(inventory)
+            player.get_inventory()
         else:
             print("\nVotre inventaire est vide.")
         return True
@@ -293,10 +292,11 @@ class Actions:
         print(current_room.get_long_description())
 
         # Vérifier et afficher les objets dans la pièce
-        if current_room.item:
+        if current_room.inventory:
             print("\nVous voyez les objets suivants :")
-            for item_name, item_details in current_room.items.items():
-                print(f"{item_name}: {item_details['description']} (Poids: {item_details['poids']}kg)")
+            #for item_name, item_details in current_room.inventory:
+                #print(f"{item_name}: {item_details['description']} (Poids: {item_details['poids']}kg)")
+            print(current_room.get_inventory())
         else:
             print("\nIl n'y a aucun objet ici.")
         return True
@@ -340,15 +340,57 @@ class Actions:
         item_name = list_of_words[1]
 
         # Vérifier si l'objet est dans la pièce
-        if item_name in current_room.item:
+        #get_inventory me renvoie un str
+        if item_name in current_room.inventory:
             # Ajouter l'objet à l'inventaire du joueur
-            player.inventory[item_name] = current_room.item[item_name]
-
+            player.inventory[item_name] = current_room.inventory[item_name]
             # Retirer l'objet de la pièce
-            del current_room.item[item_name]
+            del current_room.inventory[item_name]
 
             print(f"\nVous avez pris {item_name} et l'avez ajouté à votre inventaire.")
             return True
         else:
             print(f"\nL'objet '{item_name}' n'est pas présent dans cette pièce.")
+            return False
+        
+
+    def drop(game,list_of_words, number_of_parameters):
+        """
+        allows to drop an objet from the player inventory to the inventory of the room.
+
+        Args:
+            game (Game): The game object.
+            list_of_words (list): The list of words in the command.
+            number_of_parameters (int): The number of parameters expected by the command.
+
+        Returns:
+            bool: True if the command was executed successfully, False otherwise.
+
+
+        """
+
+        player = game.player
+        current_room = player.current_room
+
+        # Vérifier le nombre de paramètres
+        if len(list_of_words) != number_of_parameters +2:
+            command_word = list_of_words[0]
+            print(MSG1.format(command_word=command_word))
+            return False
+
+        # Récupérer le nom de l'objet à prendre
+        item_name = list_of_words[1]
+
+        # Vérifier si l'objet est dans la pièce
+        #get_inventory me renvoie un str
+        if item_name in player.inventory:
+            # Ajouter l'objet à l'inventaire du joueur
+            current_room.inventory[item_name] = player.inventory[item_name] 
+            # Retirer l'objet de la pièce
+            del player.inventory[item_name]
+
+            print(f"\nVous avez laissé {item_name} dans la pièce")
+            return True
+        else:
+            print(f"\nL'objet '{item_name}' est toujours dans votre inventaire")
             return False
