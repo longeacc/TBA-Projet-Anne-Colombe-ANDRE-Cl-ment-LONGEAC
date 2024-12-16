@@ -21,6 +21,7 @@ des exemples d'utilisations sous forme de doctests :
 """
 
 class Room:
+    """la classe room donne les méthodes realtives aux différentes pièces"""
 
     # Define the constructor.
     def __init__(self, name, description):
@@ -97,7 +98,8 @@ class Room:
             return
         inventory_description="\n".join(f"\t- {item.name}: {item.description} ({item.weight} kg)" for item in self.inventory.values())
 
-        # pnj_description= "\n".join(f"\t- {charactere.name}: {charactere.description} " for charactere in self.pnj.values())
+        # pnj_description= "\n".join(f"\t- {charactere.name}:
+        #{charactere.description} " for charactere in self.pnj.values())
 
 
     def look(self):
@@ -130,6 +132,7 @@ class Room:
 #         if self.pnj.values():
 #             print("\nVous voyez les objets suivants :")
 #             for charactere in self.pnj.values():
-#                 print(f"{self.name_pnj} : {self.description} en cave ({self.current_room}) , dit nous ! {self.msg_char} " )
+#                 print(f"{self.name_pnj} : {self.description}
+                #en cave ({self.current_room}) , dit nous ! {self.msg_char} " )
 #         else:
 #             print("\nIl n'y a personne ici. Vos lunettes sont sans doutes sales")"""
