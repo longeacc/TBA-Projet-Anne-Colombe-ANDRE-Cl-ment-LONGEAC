@@ -1,5 +1,13 @@
 # Define the Player class.
 class Player():
+    """La class player contient toutes les fonctions associées.
+
+    Args:
+        
+
+    Returns:
+        
+    """
 
     # Define the constructor.
     def __init__(self, name):
@@ -7,13 +15,20 @@ class Player():
         self.current_room = None
         self.history = []
         self.inventory={}
-    
+
 
     # Define the move method.
     def move(self, direction):
+        """Donne l'inventaire du joueur.
+
+    Args:
+        
+
+    Returns:
+        
+    """
         # Get the next room from the exits dictionary of the current room.
         next_room = self.current_room.exits[direction]
-
 
 
         # If the next room is None, print an error message and return False.
@@ -31,29 +46,35 @@ class Player():
             print("-",i.name )
         return True
 
-        
-        
-      
+
     # Define history
     def get_history2(self):
+        """Permet de retenir l'inventaire du joueur.
+
+    Args:
+        
+
+    Returns:
+        
+    """
         print("vous avez déjà visité les pièces suivantes:\n")
         for i in(self.history):
             print("-",i.name)
-        return True       
-    
-    
-    
+        return True
+
+
     def get_inventory(self):
+        """Donne l'inventaire du joueur.
+
+    Args:
+        
+
+    Returns:
+        
+    """
         if not self.inventory:
             print("inventaire est vide ")
             return
 
-        #"\n".join(f"\t- {item.name}: {item.description} ({item.weight} kg)" for item in self.inventory.values())
-        #inventory_description="\n".join(f"\t- {item.name}: {item.description} ({item.weight} kg)" for item in self.inventory.values())
-        #return "vous avez dans votre inventaire".join(inventory_description)
-
-        else:
-            #print("\nVous avez les objets suivants :")
-            for item in self.inventory.values():
-                print(f"{item.name}: {item.description} (Poids: {item.weight}kg)")
-        
+        for item in self.inventory.values():
+            print(f"{item.name}: {item.description} (Poids: {item.weight}kg)")

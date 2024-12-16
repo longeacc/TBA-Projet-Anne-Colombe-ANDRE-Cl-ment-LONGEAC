@@ -8,18 +8,14 @@
 # The functions return True if the command was executed successfully, False otherwise.
 # The functions print an error message if the number of parameters is incorrect.
 # The error message is different depending on the number of parameters expected by the command.
-
-
-# The error message is stored in the MSG0 and MSG1 variables and formatted with the command_word variable, the first word in the command.
+# The error message is stored in the MSG0/MSG1 variables, formatted with the command_word variable.
 # The MSG0 variable is used when the command does not take any parameter.
-
 # The MSG1 variable is used when the command takes 1 parameter.
 MSG0 = "\nLa commande {command_word} ne prend pas de paramètre.\n"
 MSG1 = "\nLa commande {command_word} prend 1 seul paramètre.\n"
 
 
 class Actions:
-    
 
     def go(game, list_of_words, number_of_parameters):
         """
@@ -47,23 +43,22 @@ class Actions:
         False
 
         """
-        
-        
+
         player = game.player
         l = len(list_of_words)
         # If the number of parameters is incorrect, print an error message and return False.
-        
+
         if l != number_of_parameters + 1:
             command_word = list_of_words[0]
             print(MSG1.format(command_word=command_word))
             return False
-        
+
         #get the direction from the list
         direction = list_of_words[1]
         #move the player to the specific direction
         player.move(direction)
         return True
-              
+
     def get_back(game, list_of_words, number_of_parameters):
         """Permet de retourner dans la pièce précédente.
 
@@ -91,13 +86,12 @@ class Actions:
             previous_room = player.history.pop()
             player.current_room = previous_room
             print(f"\nVous êtes retourné dans la pièce précédente : {previous_room.name}\n")
-            
 
             # Ajout de la description complète
-            #print(f"Description complète de {previous_room.name} :\n{previous_room.get_long_description()}\n")
+            #print(f"Description complète de {previous_room.name}:\n{previous_room.get_long_description()}\n")
 
             # Historique mis à jour
-            history_names = ", ".join(room.name for room in player.history) if player.history else "aucun historique"
+            history_names = ",".join(room.name for room in player.history) if player.history else "aucun historique"
             print(f"Historique des pièces visitées : {history_names}\n")
 
             # Affichage des sorties disponibles
@@ -106,13 +100,9 @@ class Actions:
                 exits_display = ", ".join(exits) if exits else "aucune direction disponible"
                 print(f"Sorties disponibles depuis {previous_room.name} : {exits_display}\n")
             else:
-                print("Les informations sur les sorties ne sont pas disponibles pour cette pièce.\n")
+                print("Les infos sur les sorties ne sont pas disponibles pour cette pièce.\n")
 
         return True
-   
-
-
-
 
     def quit(game, list_of_words, number_of_parameters):
         """
@@ -145,7 +135,7 @@ class Actions:
             command_word = list_of_words[0]
             print(MSG0.format(command_word=command_word))
             return False
-        
+
         # Set the finished attribute of the game object to True.
         player = game.player
         msg = f"\nMerci {player.name} d'avoir joué. Au revoir.\n"
@@ -184,14 +174,13 @@ class Actions:
             command_word = list_of_words[0]
             print(MSG0.format(command_word=command_word))
             return False
-    
+
         # Print the list of available commands.
         print("\nVoici les commandes disponibles:")
         for command in game.commands.values():
             print("\t- " + str(command))
         print()
         return True
-    
 
     def get_history(game,list_of_words,number_of_parameters):
         """allows to show up the previosu visited rooms 
@@ -212,8 +201,6 @@ class Actions:
                 #print ("",i.name)
         #return True
 
-        
-
         # Vérifier le nombre de paramètres
         if len(list_of_words) != number_of_parameters + 1:
             command_word = list_of_words[0]
@@ -228,8 +215,6 @@ class Actions:
         else:
             print("\nVous n'avez pas encore visité de pièce.")
         return True
-    
-    
 
     def check(game, list_of_words, number_of_parameters):
         """
@@ -249,7 +234,7 @@ class Actions:
             command_word = list_of_words[0]
             print(MSG0.format(command_word=command_word))
             return False
-        
+
         # Affiche l'inventaire du joueur
         player = game.player
         if player.inventory:
@@ -276,7 +261,7 @@ class Actions:
 
         """
 
-         # Vérifier le nombre de paramètres
+        # Vérifier le nombre de paramètres
         if len(list_of_words) != number_of_parameters + 1:
             command_word = list_of_words[0]
             print(MSG0.format(command_word=command_word))
@@ -291,27 +276,16 @@ class Actions:
         if current_room.inventory:
             print("\nVous voyez les objets suivants :")
             #for item_name, item_details in current_room.inventory:
-                #print(f"{item_name}: {item_details['description']} (Poids: {item_details['poids']}kg)")
+            #print(f"{item_name}: {item_details['description']} (Poids: {item_details['poids']}kg)")
             print(current_room.get_inventory())
         else:
             print("\nIl n'y a aucun objet ici.")
         return True
 
 
-        # Afficher la description de la pièce
-        #print(self.get_long_description())
-        
-        # Vérifier si des objets sont présents dans la pièce
-        #if self.items:
-            #print("\nVous voyez les objets suivants :")
-            #for item_name, item_details in self.items.items():
-                #print(f"{item_name}: {item_details['description']} (Poids: {item_details['poids']}kg)")
-        #else:
-            #print("\nIl n'y a aucun objet ici.")
-
     def take(game,list_of_words, number_of_parameters):
         """
-        allows to take an objet in the inventory of a room and add it into the inventory of the player.
+        Take an objet from the inventory of a room and add it into the inventory of the player.
 
         Args:
             game (Game): The game object.
@@ -345,10 +319,10 @@ class Actions:
 
             print(f"\nVous avez pris {item_name} et l'avez ajouté à votre inventaire.")
             return True
-        else:
-            print(f"\nL'objet '{item_name}' n'est pas présent dans cette pièce.")
-            return False
-        
+
+        print(f"\nL'objet '{item_name}' n'est pas présent dans cette pièce.")
+        return False
+
 
     def drop(game,list_of_words, number_of_parameters):
         """
@@ -381,21 +355,21 @@ class Actions:
         #get_inventory me renvoie un str
         if item_name in player.inventory:
             # Ajouter l'objet à l'inventaire du joueur
-            current_room.inventory[item_name] = player.inventory[item_name] 
+            current_room.inventory[item_name] = player.inventory[item_name]
             # Retirer l'objet de la pièce
             del player.inventory[item_name]
 
             print(f"\nVous avez laissé {item_name} dans la pièce")
             return True
-        else:
-            print(f"\nL'objet '{item_name}' est toujours dans votre inventaire")
-            return False
 
-    # def move(): 
+        print(f"\nVous n'avez pas {item_name} dans votre inventaire")
+        return False
+
+    # def move():
     #     l=[0,1]
     #     if random.choice(l)==1:
-    #         #le pnj se déplace dans une des 7 salles si random.choice(l) vaut 1 sinon le pnj reste là où il est 
+    #         #le pnj se déplace dans les salles si random.choice(l) vaut 1 sinon le pnj reste là où il est
     #         current_room.pnj[name_pnj]=random.choice(room)
     #         return True
-    #     else: 
-    #         return False
+    #     else:
+    #       return False

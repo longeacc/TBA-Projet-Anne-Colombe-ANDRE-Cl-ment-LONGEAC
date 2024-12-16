@@ -1,6 +1,6 @@
 # Define the Room class.
 """
-Cette classe définie les méthodes d'entrée et de sortie des différentes salles en ajoutant leurs états à chaques fois
+Classe qui définie les méthodes d'entrée/sortie des salles ajoute leurs états à chaques fois
 
 Description détaillée de la classe:
 ** le constructeur : __init__() , il défini l'état de la classe 
@@ -22,7 +22,7 @@ des exemples d'utilisations sous forme de doctests :
 
 class Room:
 
-    # Define the constructor. 
+    # Define the constructor.
     def __init__(self, name, description):
         self.name = name
         self.description = description
@@ -30,55 +30,93 @@ class Room:
         #self.inventory=set()
         self.inventory = {}
         # self.pnj={}
-        
+
+
     # Define the get_exit method.
     def get_exit(self, direction):
+        """Donne les sorties de la pièce.
+
+    Args:
+        
+
+    Returns:
+        
+    """
 
         # Return the room in the given direction if it exists.
         if direction in self.exits.keys():
-     
+
             return self.exits[direction]
-            
-        else:
-            return None
+
+        return None
+
 
     # Return a long description of this room including exits.
     def get_long_description(self):
+        """Donne la description complète de la pièce.
+
+    Args:
+        
+
+    Returns:
+        
+    """
         return f"\nVous êtes {self.description}\n\n{self.get_exit_string()}\n"
         return f"{self.description}\nObjets disponibles : {', '.join(self.items.keys()) if self.items else 'Aucun'}"
 
 
     # Return a string describing the room's exits.
     def get_exit_string(self):
-        exit_string = "Sorties: " 
+        """Affiche les différentes sorties des pièces.
+
+    Args:
+        
+
+    Returns:
+        
+    """
+        exit_string = "Sorties: "
         for exit in self.exits.keys():
             if self.exits.get(exit) is not None:
                 exit_string += exit + ", "
         exit_string = exit_string.strip(", ")
         return exit_string
-            
+
+
     def get_inventory(self):
+        """Donne les objets présents dans la pièce.
+
+    Args:
+        
+
+    Returns:
+        
+    """
         if not self.inventory:
             print("inventaire est vide ")
             return
-        #f"\n \t -{item.name}: {item.description} ({item.weight} kg)" for item in self.inventory
-        #"\n".join(f"\t- {item.name}: {item.description} ({item.weight} kg)" for item in self.inventory.values())
         inventory_description="\n".join(f"\t- {item.name}: {item.description} ({item.weight} kg)" for item in self.inventory.values())
-
 
         # pnj_description= "\n".join(f"\t- {charactere.name}: {charactere.description} " for charactere in self.pnj.values())
 
 
     def look(self):
         """
-        Affiche la description de la pièce et les objets présents.
-        """
+        Affiche la description complète des objets présents dans la pièce.
+    
+
+    Args:
+        
+
+    Returns:
+        
+    """
         print(self.get_long_description())
         if self.inventory:
             print("\nVous voyez les objets suivants :")
             for item in self.inventory.values():
                 print(f"{item.name}: {item.description} (Poids: {item.weight}kg)")
-            
+
             # for charactere in self.pnj.values():
             #     print(f"{pnj.name}: {pnj.description}")
         else:
