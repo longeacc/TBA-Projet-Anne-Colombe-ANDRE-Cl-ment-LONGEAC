@@ -63,11 +63,7 @@ class Actions:
         #move the player to the specific direction
         player.move(direction)
         return True
-        
-
-    
-       
-        
+              
     def get_back(game, list_of_words, number_of_parameters):
         """Permet de retourner dans la pièce précédente.
 
@@ -394,3 +390,12 @@ class Actions:
         else:
             print(f"\nL'objet '{item_name}' est toujours dans votre inventaire")
             return False
+
+    # def move(): 
+    #     l=[0,1]
+    #     if random.choice(l)==1:
+    #         #le pnj se déplace dans une des 7 salles si random.choice(l) vaut 1 sinon le pnj reste là où il est 
+    #         current_room.pnj[name_pnj]=random.choice(room)
+    #         return True
+    #     else: 
+    #         return False

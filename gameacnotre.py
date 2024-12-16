@@ -1,8 +1,13 @@
+# Description: Game class
+# Import modules
+
 from room import Room
 from player import Player
 from command import Command
 from actions import Actions
 from item import Item
+import pygame 
+from charactere import Charactere
 
 class Game:
 
@@ -14,9 +19,14 @@ class Game:
         self.player = None
         #self.actions = None
         self.item = []
+        #self.pnj={}
     
     # Setup the game
     def setup(self):
+
+        # definitions des talk des PNJ dans chaques room: 
+
+        #talk = Command( "talk", " : vous parlez au grand mage", Actions)
 
         # Setup commands
 
@@ -43,7 +53,8 @@ class Game:
         self.commands["check"]=check
         look=Command("look"," :affiche les items présents dans cette pièce", Actions.look,0 )
         self.commands["look"]=look
- 
+        # inventaire=Command("inventaire", ": Qu'avons nous récupérer depuis le début de notre aventure ", Actions.inventory, 0)
+        # self.commands["inventory"]=inventory
  
         # Setup rooms
        
@@ -82,6 +93,41 @@ class Game:
         self.item.append(pince)
         pierre = Item("pierre","une grosse pierre pour quoi faire ? Il n'y a personne à lapider...",3)
         self.item.append(pierre)
+
+        # #pnj def 
+
+        # archibald = Charactere("Archibald", "Il sera notre guide pendant toute l'aventure", cave1,["je suis arcchi"] ) 
+        # """ 
+        # Archibald est dans toutes les pièces , c'est notre conseiller.
+
+        # """
+
+        # cave1.pnj["archibald"]= archibald
+        # cave2.pnj["archibald"]= archibald
+        # cave3.pnj["archibald"]= archibald
+        # cave4.pnj["archibald"]= archibald
+        # cave5.pnj["archibald"]= archibald
+        # cave6.pnj["archibald"]= archibald
+        # cave7.pnj["archibald"]= archibald
+        # cave8.pnj["archibald"]= archibald
+
+        # """lancelot=Charactere("lancelot", " avez vous besoin d'une arme ?", cave1,["je suis lancelot"])
+        # cave1.pnj["lancelot"]= lancelot
+
+        # heiter=Charactere("heiter", "que dois-je taillé pour vous ? Je ne suis que menuisier ...",cave2,["je suis heiter"])
+        # cave2.pnj["heiter"]= heiter
+
+        # flame= Charactere("flame", " je suis la gardienne de ce feu, je ne vous serait pas d'une grande utilité, je ne peux vous donner qu'un peu de chaleur",cave4, ["je suis flame"])
+        # cave4.pnj["flame"]=flame
+
+        # ulfberht= Charactere( "ulfberht" ," je peux te fournir n'importe quelle arme et même des boucliers",cave6,["je suis ulfberht"])
+        # cave6.pnj["ulfberht"]=ulfberht
+
+        # phidias= Charactere( "phidias", "je suis tailleur de pierre pour le démon, je veux que vous le renversier c'est pourquoi je vius founi quelques rocher" , cave7,["je suis phidias"])
+        # cave7.pnj["phidias"]=phidias
+
+        # selyse= Charactere( "selyse","Puis-je vous aider ? Hélas, je n'ai que des pinces à linges pour vous... ",cave3,["je suis selyse"])
+        # cave3.pnj["selyse"]=selyse"""
 
 
         # items def  
@@ -184,6 +230,20 @@ class Game:
 
     # Process the command entered by the player (commande vide)
     def process_command(self, command_string) -> None:
+    #     """ cette fonctionn a pour but de définir la manière dont les messages des PNJ sont affichés etc 
+    #     Ex : 
+    #     msg_char = A 
+    #     press  SPACE 
+    #     msg_char = B 
+    #     press SPACE 
+    #     msg _ char = C
+    #     ...
+    #     """
+    #   """
+    #     for event in pygame.event.get(): 
+    #         if event.key == pygame.K_SPACE :
+    #             game.action.talk_char()"""
+
         if command_string=='':
             return
 
@@ -233,9 +293,17 @@ class Game:
         print("Entrez 'help' si vous avez besoin d'aide.")
         print(self.player.current_room.get_long_description())
 
+"""
+    def DEBUG(bool):
+        if DEBUG is True : 
+            print (DEBUG("DEBUG: message"))
+        else :
+            return Nothing"""
 
-    
-    
+
+
+
+
 
 def main():
     # Create a game object and play the game

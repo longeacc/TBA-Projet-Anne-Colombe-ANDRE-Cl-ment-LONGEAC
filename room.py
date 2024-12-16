@@ -18,10 +18,8 @@ Liste des exceptions levées par la classe :
 Il y a une exception si l'on rencontre un mur ou que l'on ne peut pas sortir de la salle 
 
 des exemples d'utilisations sous forme de doctests : 
-
-
-
 """
+
 class Room:
 
     # Define the constructor. 
@@ -30,8 +28,8 @@ class Room:
         self.description = description
         self.exits = {}
         #self.inventory=set()
-
         self.inventory = {}
+        # self.pnj={}
         
     # Define the get_exit method.
     def get_exit(self, direction):
@@ -44,15 +42,12 @@ class Room:
         else:
             return None
 
-
-    
     # Return a long description of this room including exits.
     def get_long_description(self):
         return f"\nVous êtes {self.description}\n\n{self.get_exit_string()}\n"
         return f"{self.description}\nObjets disponibles : {', '.join(self.items.keys()) if self.items else 'Aucun'}"
-    
 
-    
+
     # Return a string describing the room's exits.
     def get_exit_string(self):
         exit_string = "Sorties: " 
@@ -61,9 +56,6 @@ class Room:
                 exit_string += exit + ", "
         exit_string = exit_string.strip(", ")
         return exit_string
-
-
-
             
     def get_inventory(self):
         if not self.inventory:
@@ -72,18 +64,34 @@ class Room:
         #f"\n \t -{item.name}: {item.description} ({item.weight} kg)" for item in self.inventory
         #"\n".join(f"\t- {item.name}: {item.description} ({item.weight} kg)" for item in self.inventory.values())
         inventory_description="\n".join(f"\t- {item.name}: {item.description} ({item.weight} kg)" for item in self.inventory.values())
-        return "vous avez dans votre inventaire".join(inventory_description)
+
+
+        # pnj_description= "\n".join(f"\t- {charactere.name}: {charactere.description} " for charactere in self.pnj.values())
 
 
     def look(self):
         """
         Affiche la description de la pièce et les objets présents.
         """
-        
         print(self.get_long_description())
         if self.inventory:
             print("\nVous voyez les objets suivants :")
             for item in self.inventory.values():
                 print(f"{item.name}: {item.description} (Poids: {item.weight}kg)")
+            
+            # for charactere in self.pnj.values():
+            #     print(f"{pnj.name}: {pnj.description}")
         else:
             print("\nIl n'y a aucun objet ici.")
+# """
+#     def integer_PNJ(self):
+#         """ affiche le nom du PNJ présent dans la piece
+#         """
+
+#         print(self.get_long_description_PNJ())
+#         if self.pnj.values():
+#             print("\nVous voyez les objets suivants :")
+#             for charactere in self.pnj.values():
+#                 print(f"{self.name_pnj} : {self.description} en cave ({self.current_room}) , dit nous ! {self.msg_char} " )
+#         else:
+#             print("\nIl n'y a personne ici. Vos lunettes sont sans doutes sales")"""
