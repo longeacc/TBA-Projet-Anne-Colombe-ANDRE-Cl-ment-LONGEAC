@@ -1,6 +1,14 @@
 """définition de la classe Item"""
 class Item :
-    """cette classe défini les méthodes de Item"""
+    """
+    Classe représentant un objet dans le jeu.
+
+    Attributs:
+        name (str): Nom de l'objet.
+        description (str): Description de l'objet.
+        weight (float): Poids de l'objet en kilogrammes.
+    """
+
     def __init__(self,name ,description ,weight):
         self.name=name
         self.description = description
@@ -10,5 +18,10 @@ class Item :
 
     # on défini la méthode __str__() :
     def __str__(self):
-        """retourne la représentation textuelle du personnage"""
+        """
+        Retourne une représentation textuelle de l'objet.
+
+        Returns:
+            str: Nom, description et poids de l'objet sous forme de chaîne.
+        """
         return f"{self.name} : {self.description} ({self.weight} kg)"

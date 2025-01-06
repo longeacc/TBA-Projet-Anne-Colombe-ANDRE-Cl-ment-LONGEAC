@@ -21,7 +21,22 @@ des exemples d'utilisations sous forme de doctests :
 """
 
 class Room:
-    """la classe room donne les méthodes realtives aux différentes pièces"""
+    """
+    Classe qui gère les salles d'un jeu, y compris leurs descriptions, sorties et inventaires.
+
+    Attributs:
+        name (str): Nom de la salle.
+        description (str): Description de la salle.
+        exits (dict): Dictionnaire des sorties de la salle, avec les directions \
+        comme clés et les salles correspondantes comme valeurs.
+        inventory (dict): Dictionnaire des objets disponibles dans la salle, \
+        avec les noms comme clés et les objets comme valeurs.
+
+    Exceptions:
+        Aucune exception directe n'est levée, mais des validations\
+         simples permettent d'éviter des actions invalides \
+         (par exemple, demander une sortie inexistante).
+    """
 
     # Define the constructor.
     def __init__(self, name, description):
@@ -30,19 +45,24 @@ class Room:
         self.exits = {}
         #self.inventory=set()
         self.inventory = {}
-        # self.pnj={}
+        self.pnj={}
 
+    #nécessaire pour ne pas avoir un affichage 0x7edd6001f7d0
+    def __str__(self):
+        return self.name
 
     # Define the get_exit method.
     def get_exit(self, direction):
-        """Donne les sorties de la pièce.
+        """
+        Retourne la salle correspondante à une direction si elle existe.
 
-    Args:
-        
+        Args:
+            direction (str): Direction demandée (par exemple, "nord", "sud").
 
-    Returns:
-        
-    """
+        Returns:
+            Room: La salle correspondant à la direction, ou None si aucune sortie n'existe.
+        """
+
 
         # Return the room in the given direction if it exists.
         if direction in self.exits.keys():
@@ -54,28 +74,25 @@ class Room:
 
     # Return a long description of this room including exits.
     def get_long_description(self):
-        """Donne la description complète de la pièce.
+        """
+        Retourns:
+            une description complète de la salle, y compris les sorties.
 
-    Args:
-        
-
-    Returns:
-        
-    """
+        Returns:
+            str: Description complète de la salle avec les sorties.
+        """
         return f"\nVous êtes {self.description}\n\n{self.get_exit_string()}\n"
         return f"{self.description}\nObjets disponibles : {', '.join(self.items.keys()) if self.items else 'Aucun'}"
 
 
     # Return a string describing the room's exits.
     def get_exit_string(self):
-        """Affiche les différentes sorties des pièces.
+        """
+        Retourne une chaîne indiquant les sorties disponibles de la salle.
 
-    Args:
-        
-
-    Returns:
-        
-    """
+        Returns:
+            str: Chaîne listant les sorties disponibles.
+        """
         exit_string = "Sorties: "
         for exit in self.exits.keys():
             if self.exits.get(exit) is not None:
@@ -85,54 +102,44 @@ class Room:
 
 
     def get_inventory(self):
-        """Donne les objets présents dans la pièce.
+        """
+        Retourne une description des objets présents dans la salle.
 
-    Args:
-        
+        Returns:
+            str: Description des objets dans la salle, \
+            ou un message indiquant que l'inventaire est vide.
+        """
 
-    Returns:
-        
-    """
         if not self.inventory:
             print("inventaire est vide ")
             return
         inventory_description="\n".join(f"\t- {item.name}: {item.description} ({item.weight} kg)" for item in self.inventory.values())
 
-        # pnj_description= "\n".join(f"\t- {charactere.name}:
-        #{charactere.description} " for charactere in self.pnj.values())
 
+    def get_pnj(self):
+        """dcc
+        """
+        if not self.pnj:
+            print("il n'y a pas de pnj ici")
+            return
+        pnj_description = "\n".join(f"{character.name_pnj}, {character.description_pnj}, [{character.msg_pnj}]" for pnj in self.pnj.values())
 
     def look(self):
         """
         Affiche la description complète des objets présents dans la pièce.
-    
+        """
 
-    Args:
-        
-
-    Returns:
-        
-    """
         print(self.get_long_description())
         if self.inventory:
             print("\nVous voyez les objets suivants :")
             for item in self.inventory.values():
                 print(f"{item.name}: {item.description} (Poids: {item.weight}kg)")
-
-            # for charactere in self.pnj.values():
-            #     print(f"{pnj.name}: {pnj.description}")
         else:
             print("\nIl n'y a aucun objet ici.")
-# """
-#     def integer_PNJ(self):
-#         """ affiche le nom du PNJ présent dans la piece
-#         """
-
-#         print(self.get_long_description_PNJ())
-#         if self.pnj.values():
-#             print("\nVous voyez les objets suivants :")
-#             for charactere in self.pnj.values():
-#                 print(f"{self.name_pnj} : {self.description}
-                #en cave ({self.current_room}) , dit nous ! {self.msg_char} " )
-#         else:
-#             print("\nIl n'y a personne ici. Vos lunettes sont sans doutes sales")"""
+        
+        if self.pnj:
+            print("\nIl y a un PNJ dans cette pièce :")
+            for character in self.pnj.values():
+                print(f"{character.name}, {character.description_pnj}") #[{character.msgs}]
+        else:
+            print("\nIl n'y a personne ici. Vos lunettes sont sans doutes sales")

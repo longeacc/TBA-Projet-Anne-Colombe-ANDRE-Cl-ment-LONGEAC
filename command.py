@@ -41,5 +41,10 @@ class Command:
 
     # The string representation of the command.
     def __str__(self):
-        """retourne les commandes du perso"""
+        """
+        Returns a string representation of the command, combining the command word and help string.
+
+        Returns:
+            str: A formatted string displaying the command word and its description.
+        """
         return  self.command_word + self.help_string

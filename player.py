@@ -1,12 +1,13 @@
 # Define the Player class.
 class Player():
-    """La class player contient toutes les fonctions associées.
+    """
+    Classe Player qui gère les actions et l'état du joueur dans le jeu.
 
-    Args:
-        
-
-    Returns:
-        
+    Attributs:
+        name (str): Nom du joueur.
+        current_room (Room): Salle actuelle où se trouve le joueur.
+        history (list): Liste des salles précédemment visitées.
+        inventory (dict): Inventaire du joueur, contenant les objets ramassés.
     """
 
     # Define the constructor.
@@ -19,14 +20,16 @@ class Player():
 
     # Define the move method.
     def move(self, direction):
-        """Donne l'inventaire du joueur.
+        """
+        Déplace le joueur dans une direction donnée si une sortie existe.
 
-    Args:
-        
+        Args:
+            direction (str): Direction dans laquelle le joueur souhaite se déplacer.
 
-    Returns:
-        
-    """
+        Returns:
+            bool: True si le déplacement a réussi, False sinon.
+        """
+
         # Get the next room from the exits dictionary of the current room.
         next_room = self.current_room.exits[direction]
 
@@ -37,7 +40,7 @@ class Player():
             return False
         self.history.append(self.current_room)
 
-        # Set the current room to the next room.
+        # Set the current room tos the next room.
         self.current_room = next_room
         print(self.current_room.get_long_description())
         #already visited room
@@ -49,14 +52,13 @@ class Player():
 
     # Define history
     def get_history2(self):
-        """Permet de retenir l'inventaire du joueur.
+        """ 
+        Affiche l'historique des salles déjà visitées par le joueur.
 
-    Args:
-        
+        Returns:
+            bool: True une fois l'historique affiché.
+        """
 
-    Returns:
-        
-    """
         print("vous avez déjà visité les pièces suivantes:\n")
         for i in(self.history):
             print("-",i.name)
@@ -64,14 +66,13 @@ class Player():
 
 
     def get_inventory(self):
-        """Donne l'inventaire du joueur.
+        """
+        Affiche les objets présents dans l'inventaire du joueur.
 
-    Args:
-        
+        Returns:
+            None
+        """
 
-    Returns:
-        
-    """
         if not self.inventory:
             print("inventaire est vide ")
             return

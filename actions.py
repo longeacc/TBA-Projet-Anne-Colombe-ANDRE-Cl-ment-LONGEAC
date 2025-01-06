@@ -62,14 +62,14 @@ class Actions:
     def get_back(game, list_of_words, number_of_parameters):
         """Permet de retourner dans la pièce précédente.
 
-    Args:
-        game (Game): L'objet jeu.
-        list_of_words (list): La liste des mots dans la commande.
-        number_of_parameters (int): Le nombre de paramètres attendu pour la commande.
+        Args:
+            game (Game): L'objet jeu.
+            list_of_words (list): La liste des mots dans la commande.
+            number_of_parameters (int): Le nombre de paramètres attendu pour la commande.
 
-    Returns:
-        bool: True si la commande a été exécutée correctement, False sinon.
-    """
+        Returns:
+            bool: True si la commande a été exécutée correctement, False sinon.
+        """
         player = game.player
 
         # Vérification du nombre de paramètres
@@ -87,8 +87,6 @@ class Actions:
             player.current_room = previous_room
             print(f"\nVous êtes retourné dans la pièce précédente : {previous_room.name}\n")
 
-            # Ajout de la description complète
-            #print(f"Description complète de {previous_room.name}:\n{previous_room.get_long_description()}\n")
 
             # Historique mis à jour
             history_names = ",".join(room.name for room in player.history) if player.history else "aucun historique"
@@ -183,23 +181,19 @@ class Actions:
         return True
 
     def get_history(game,list_of_words,number_of_parameters):
-        """allows to show up the previosu visited rooms 
+        """
+        allows to show up the previosu visited rooms 
         
         Args:
-        
-        game (Game): The game object.
-        list_of_words (list): The list of words in the command.
-        number_of_parameters (int): The number of parameters expected by the command.
+            game (Game): The game object.
+            list_of_words (list): The list of words in the command.
+            number_of_parameters (int): The number of parameters expected by the command.
            
         Returns:
+            bool: True if the command was executed successfully, False otherwise.
             
         """
         player = game.player
-        #if player.history:
-            #print("\nPièces déjà visitées:\n")
-            #for i in player.history:
-                #print ("",i.name)
-        #return True
 
         # Vérifier le nombre de paramètres
         if len(list_of_words) != number_of_parameters + 1:
@@ -275,8 +269,6 @@ class Actions:
         # Vérifier et afficher les objets dans la pièce
         if current_room.inventory:
             print("\nVous voyez les objets suivants :")
-            #for item_name, item_details in current_room.inventory:
-            #print(f"{item_name}: {item_details['description']} (Poids: {item_details['poids']}kg)")
             print(current_room.get_inventory())
         else:
             print("\nIl n'y a aucun objet ici.")
@@ -365,11 +357,36 @@ class Actions:
         print(f"\nVous n'avez pas {item_name} dans votre inventaire")
         return False
 
-    # def move():
-    #     l=[0,1]
-    #     if random.choice(l)==1:
-    #         #le pnj se déplace dans les salles si random.choice(l) vaut 1 sinon le pnj reste là où il est
-    #         current_room.pnj[name_pnj]=random.choice(room)
-    #         return True
-    #     else:
-    #       return False
+
+    def talk(game,list_of_words, number_of_parameters):
+        """
+        Permet au joueur de parler à un PNJ dans la salle actuelle.
+
+        Args:
+        game (Game): Instance du jeu en cours.
+        character_name (str): Nom du personnage avec lequel parler.
+
+        Returns:
+        None
+        """
+        player = game.player
+        current_room = player.current_room
+
+        # Vérifier le nombre de paramètres
+        if len(list_of_words) != number_of_parameters +1:
+            command_word = list_of_words[0]
+            print(MSG1.format(command_word=command_word))
+            return False
+
+        # Récupérer le nom de l'objet à prendre
+        character_name = list_of_words[1]
+
+        player = game.player
+
+        #Vérifie si le PNJ existe dans la salle actuelle
+        if character_name in player.current_room.pnj:
+            print(player.current_room.pnj[character_name].get_msg())
+            return True
+        else:
+            print(f"Il n'y a pas de personnage nommé {character_name} ici.")
+            return False
