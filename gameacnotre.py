@@ -10,7 +10,7 @@ from player import Player
 from command import Command
 from actions import Actions
 from item import Item
-from Character import character
+from character import Character
 DEBUG = True
 
 class Game:
@@ -72,6 +72,9 @@ class Game:
         talk = Command("talk", ": possibilité de parler avec un PNJ", Actions.talk, 1)
         self.commands["talk"] = talk
 
+        attack = Command("attack", ": attaquer le monstre", Actions.attack, 1)
+        self.commands["attack"] = attack
+
 
         #Setup rooms
 
@@ -100,7 +103,10 @@ class Game:
         " vers une pièce avec un tombeau ouvert.")
         self.room.append(cave8)
 
-
+        #def monster
+        Lucifer=Character("Lucifer", "prêt à mourrir?", ["je suis Lucifer", "ton heure est venue"])
+        Lucifer.current_room = cave8
+        cave8.pnj["Lucifer"]=Lucifer
 
         #def pnj
         

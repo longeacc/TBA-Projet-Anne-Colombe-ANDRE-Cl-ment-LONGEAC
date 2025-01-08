@@ -390,3 +390,17 @@ class Actions:
         else:
             print(f"Il n'y a pas de personnage nommé {character_name} ici.")
             return False
+
+        
+    def attack(game, list_of_words, number_of_parameters):
+        player = game.player
+        current_room = player.current_room
+
+        #si le joueur ne possède pas tous les items alors il perd
+        if len(player.inventory) < 7:
+            print(f"\n {player.name} vient de mourrir")
+            game.finished =True
+        #si le joueur possède tous les items alors il gagne
+        else:
+            print(f"\n {player.name} a tué Lucifer")
+            game.finished = True
