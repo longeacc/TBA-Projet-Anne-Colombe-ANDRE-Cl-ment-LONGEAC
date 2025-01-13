@@ -124,6 +124,6 @@ class Room:
         if self.pnj:
             print("\nIl y a un PNJ dans cette pièce :")
             for character in self.pnj.values():
-                print(f"{character.name}, {character.description_pnj}")
+                print(f"{character.name} : {character.description_pnj}")
         else:
             print("\nIl n'y a personne ici. Vos lunettes sont sans doutes sales")

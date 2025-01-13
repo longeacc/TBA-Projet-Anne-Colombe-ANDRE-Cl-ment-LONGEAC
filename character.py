@@ -26,7 +26,7 @@ class Character :
             str: Nom, description, lieu où il se trouve, le message du PNJ.
         """
 
-        return f"{self.name}, {self.description_pnj}, {self.msgs}"
+        return f"{self.name} , {self.description_pnj} , {self.msgs}"
 
     def get_msg(self) :
         """
