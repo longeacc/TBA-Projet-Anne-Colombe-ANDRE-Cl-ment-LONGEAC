@@ -31,12 +31,10 @@ class Command:
     """
 
     # The constructor.
-    def __init__(self, command_word, help_string, action, number_of_parameters):
+    def __init__(self, command_word, help_string, action):
         self.command_word = command_word
         self.help_string = help_string
         self.action = action
-        self.number_of_parameters = number_of_parameters
-
 
 
     # The string representation of the command.
@@ -47,4 +45,4 @@ class Command:
         Returns:
             str: A formatted string displaying the command word and its description.
         """
-        return  self.command_word + self.help_string
+        return f"{self.command_word}: {self:help_string}"

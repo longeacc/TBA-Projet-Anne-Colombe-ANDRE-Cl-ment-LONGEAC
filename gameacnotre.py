@@ -44,35 +44,35 @@ class Game:
             - Création et emplacement des objets dans les salles.
         """
 
-        help = Command("help", " : afficher cette aide", Actions.help, 0)
+        help = Command("help", " : afficher cette aide", Actions.help)
         self.commands["help"] = help
-        quit = Command("quit", " : quitter le jeu", Actions.quit, 0)
+        quit = Command("quit", " : quitter le jeu", Actions.quit)
         self.commands["quit"] = quit
         go = Command("go", " <direction> : se déplacer dans une \
         direction cardinale (N, E, S, O, U, D, n, e, s, o, u, d, NORD, \
         EST, SUD, OUEST, UP, DOWN, Nord, Est, Sud, Ouest,\
-        Up, Down, nord, est, sud, ouest, up, down )", Actions.go, 1)
+        Up, Down, nord, est, sud, ouest, up, down )", Actions.go)
         self.commands["go"] = go
 
-        history = Command("history", " : enregistrer l'avancement", Actions.get_history, 0)
+        history = Command("history", " : enregistrer l'avancement", Actions.get_history)
         self.commands["history"] = history
-        back = Command("back", " :retour dans la pièce précédente", Actions.get_back, 1)
+        back = Command("back", " :retour dans la pièce précédente", Actions.get_back)
         self.commands["back"] = back
 
-        take=Command("take", " :prends les items", Actions.take,0)
+        take=Command("take", " :prends les items", Actions.take)
         self.commands["take"]=take
-        drop=Command("drop"," :lâche l'item",Actions.drop,0)
+        drop=Command("drop"," :lâche l'item",Actions.drop)
         self.commands["drop"]=drop
         check=Command("check",":reflète les items présents dans l'inventaire du joeur",
-        Actions.check, 0)
+        Actions.check)
         self.commands["check"]=check
         look=Command("look"," :affiche les items\
-        présents dans cette pièce",Actions.look,0 )
+        présents dans cette pièce",Actions.look)
         self.commands["look"]=look
-        talk = Command("talk", ": possibilité de parler avec un PNJ", Actions.talk, 1)
+        talk = Command("talk", ": possibilité de parler avec un PNJ", Actions.talk)
         self.commands["talk"] = talk
 
-        attack = Command("attack", ": attaquer le monstre", Actions.attack, 1)
+        attack = Command("attack", ": attaquer le monstre", Actions.attack)
         self.commands["attack"] = attack
 
 
@@ -104,41 +104,48 @@ class Game:
         self.room.append(cave8)
 
         #def monster
-        Lucifer=Character("Lucifer", "prêt à mourrir?", ["je suis Lucifer", "ton heure est venue"])
-        Lucifer.current_room = cave8
-        cave8.pnj["Lucifer"]=Lucifer
+        lucifer=Character("lucifer", "prêt à mourrir?", ["je suis lucifer", "ton heure est venue"])
+        lucifer.current_room = cave8
+        cave8.pnj["lucifer"]=lucifer
 
         #def pnj
-        
-        Lancelot=Character("Lancelot", " avez vous besoin d'une arme ?", ["je suis Lancelot","tu es bête ou quoi je viens de te dire"])
-        Lancelot.current_room = cave1
-        cave1.pnj["Lancelot"]= Lancelot
+        lancelot=Character("lancelot", " avez vous besoin d'une arme ?",
+        ["je suis lancelot","tu es bête ou quoi je viens de te dire"])
+        lancelot.current_room = cave1
+        cave1.pnj["lancelot"]= lancelot
 
-        Heiter=Character("Heiter", "Je travaille le bois", ["je suis Heiter","Que dois-je taillé pour vous ? Je ne suis que menuisier ..."])
-        Heiter.current_room = cave2
-        cave2.pnj["Heiter"]= Heiter
+        heiter=Character("heiter", "Je travaille le bois",
+        ["je suis heiter","Que dois-je taillé pour vous ? Je ne suis que menuisier ..."])
+        heiter.current_room = cave2
+        cave2.pnj["heiter"]= heiter
 
-        Flame= Character("Flame", " vous avez froid?", ["je suis Flame","Je suis la gardienne de ce feu, je ne vous serait pas d'une grande utilité, je ne peux vous donner qu'un peu de chaleur"])
-        Flame.current_room = cave4
-        cave4.pnj["Flame"]=Flame
+        flame= Character("flame", " vous avez froid?",
+        ["je suis flame","Je suis la gardienne de ce feu, je ne vous serait" +
+        "pas d'une grande utilité, je ne peux vous donner qu'un peu de chaleur"])
+        flame.current_room = cave4
+        cave4.pnj["flame"]=flame
 
-        Ulfberht= Character( "Ulfberht" ," Je suis très demandé vous savez",["Je suis Ulfberht","Je peux te fournir n'importe quelle arme et même des boucliers"])
-        Ulfberht.current_room = cave6
-        cave6.pnj["Ulfberht"]=Ulfberht
+        ulfberht= Character( "ulfberht" ," Je suis très demandé vous savez",
+        ["Je suis ulfberht","Je peux te fournir n'importe quelle arme et même des boucliers"])
+        ulfberht.current_room = cave6
+        cave6.pnj["ulfberht"]=ulfberht
 
-        Phidias= Character( "Phidias", "Un simple esclave" , ["Je suis Phidias","Je suis tailleur de pierre pour le démon, il me garde en tant qu'esclave. Aider moi à retrouver ma liberté..."])
-        Phidias.current_room = cave7
-        cave7.pnj["Phidias"]=Phidias
+        phidias= Character( "phidias", "Un simple esclave" ,
+        ["Je suis phidias","Je suis tailleur de pierre pour le démon,"+
+        "il me garde en tant qu'esclave. Aider moi à retrouver ma liberté..."])
+        phidias.current_room = cave7
+        cave7.pnj["phidias"]=phidias
 
-        Selyse= Character("Selyse", "C'est une petite entreprise familiale", ["Je suis Selyse","Puis-je vous aider ? Hélas, je ne possède que des pinces à linges... "])
-        Selyse.current_room = cave3
-        cave3.pnj["Selyse"]=Selyse
+        selyse= Character("selyse", "C'est une petite entreprise familiale",
+        ["Je suis selyse","Puis-je vous aider ? Hélas, je ne possède que des pinces à linges... "])
+        selyse.current_room = cave3
+        cave3.pnj["selyse"]=selyse
 
 
         # items def
 
-        épée = Item ("épée", " elle vous sera utile pour votre future aventure ! ", 10)
-        cave1.inventory["épée"]=épée
+        epee = Item ("epee", " elle vous sera utile pour votre future aventure ! ", 10)
+        cave1.inventory["epee"]=epee
 
         pieu = Item ( "pieu" ," un pieu en bois plus piquant qu'un porc épic" , 2)
         cave2.inventory["pieu"]=pieu
@@ -149,8 +156,8 @@ class Game:
         bouclier = Item ("bouclier","un bouclier robuste et solide",5)
         cave6.inventory["bouclier"]=bouclier
 
-        clé = Item ("clé", "une clé mais pour ouvrir quoi ?", 1)
-        cave6.inventory["clé"]=clé
+        cle = Item ("cle", "une cle mais pour ouvrir quoi ?", 1)
+        cave6.inventory["cle"]=cle
 
         pince = Item ("pince", "une pince à linge pour couper la respiration de n'importe qui",1)
         cave3.inventory["pince"]=pince
@@ -226,9 +233,8 @@ class Game:
             # Process the command (déplacer les PNJs uniquement si nécessaire)
             self.process_command(command_string)
 
-            # Si le joueur a changé de salle (après la commande 'go' et la direction est valide), déplacer les PNJs
-            valid_directions = self.player.current_room.exits.keys()
-            if command_string.startswith("go") and self.DIRECTION_MAP.get(command_string.split()[1]) in valid_directions:
+            # Si le joueur change de salle (commande 'go' + direction valide), déplacer les PNJs
+            if command_string.startswith("go") and self.DIRECTION_MAP.get(command_string.split()[1]) is not None:
                 moved_pnjs = []
                 # Déplacer les PNJs
                 for room in self.room:
@@ -242,7 +248,6 @@ class Game:
                                 if self.DEBUG:  # Vérifie si le débogage est activé
                                     print(f"Le PNJ {pnj.name} est resté dans : {pnj.current_room.name}")
 
-        
     # Process the command entered by the player (commande vide)
     def process_command(self, command_string) -> None:
         """
@@ -259,31 +264,6 @@ class Game:
         # Split the command string into a list of words
         list_of_words = command_string.split(" ")
         command_word = list_of_words[0]
-
-        # Gestion de la commande 'talk<someone>'
-        if "talk" in command_word and "<" in command_word and ">" in command_word:
-            # Extraction du personnage mentionné
-            target_name = command_word.split("<")[1].split(">")[0]
-            current_room = self.player.current_room
-
-            # Vérification si le personnage est présent dans la pièce actuelle
-            if target_name in current_room.pnj:
-                target_pnj = current_room.pnj[target_name]
-        
-                # Vérification des messages du PNJ
-                if target_pnj.msgs_pnj:
-                    # Afficher et supprimer le premier message de la liste
-                    message = target_pnj.msgs_pnj.pop(0)
-                    print(f"\n{target_pnj.name} : {message}")
-                    # Incrémentation du compteur
-                    target_pnj.interaction_count += 1
-                else:
-                    # Message par défaut si la liste est vide
-                    print(f"\n{target_pnj.name} n'a rien à dire.")
-            else:
-                print(f"\nIl n'y a pas de PNJ nommé '{target_name}' ici.")
-            return  # Terminer après avoir géré la commande
-
 
         # Normalize direction if 'go' command is used
         if command_word == "go" and len(list_of_words) > 1:
@@ -312,7 +292,7 @@ class Game:
         # If the command is recognized, execute it
         else:
             command = self.commands[command_word]
-            command.action(self,list_of_words, command.number_of_parameters)
+            command.action(self,list_of_words)
 
         if command_word == "look":
             # call look method

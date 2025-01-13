@@ -1,3 +1,4 @@
+"""définition de la classe character"""
 import random
 class Character :
     """
@@ -9,9 +10,9 @@ class Character :
         current_room (str): Où il se trouve.
         message(str): ce que dit le personnage
     """
-    
+
     #define the constructor
-    def __init__(self,name,description_pnj,msgs) : 
+    def __init__(self,name,description_pnj,msgs) :
         self.name = name
         self.description_pnj =  description_pnj
         self.msgs = msgs
@@ -25,20 +26,20 @@ class Character :
             str: Nom, description, lieu où il se trouve, le message du PNJ.
         """
 
-        return f"{self.name}, {self.description_pnj}, {self.msgs_pnj}"
+        return f"{self.name}, {self.description_pnj}, {self.msgs}"
 
-  
     def get_msg(self) :
-        #print(self.msgs, type(self.msgs)) # test
-        if self.msgs != [] : #not in ([] , [0]) :
-                msg = self.msgs.pop(0)
-                self.msgs.append(msg)
-                return msg
-        elif self.msgs == [] :
+        """
+        Retourne le message du pnj
+        """
+        if self.msgs != []:  # not in ([] , [0])
+            msg = self.msgs.pop(0)
+            self.msgs.append(msg)
+            return msg
+        if self.msgs == []:
             return f"{self.name} n'a rien à dire..."
-        else :
+        else:
             return False
-        
 
     def move(self):
         """

@@ -43,13 +43,12 @@ class Room:
         self.name = name
         self.description = description
         self.exits = {}
-        #self.inventory=set()
         self.inventory = {}
         self.pnj={}
 
     #nécessaire pour ne pas avoir un affichage 0x7edd6001f7d0
     def __str__(self):
-        return self.name
+        return f"{self.name} : {self.description}"
 
     # Define the get_exit method.
     def get_exit(self, direction):
@@ -65,8 +64,7 @@ class Room:
 
 
         # Return the room in the given direction if it exists.
-        if direction in self.exits.keys():
-
+        if direction in self.exits:
             return self.exits[direction]
 
         return None
@@ -81,9 +79,7 @@ class Room:
         Returns:
             str: Description complète de la salle avec les sorties.
         """
-        return f"\nVous êtes {self.description}\n\n{self.get_exit_string()}\n"
-        return f"{self.description}\nObjets disponibles : {', '.join(self.items.keys()) if self.items else 'Aucun'}"
-
+        return f"Vous êtes {self.description}\n\n{self.get_exit_string()}\n"
 
     # Return a string describing the room's exits.
     def get_exit_string(self):
@@ -94,12 +90,11 @@ class Room:
             str: Chaîne listant les sorties disponibles.
         """
         exit_string = "Sorties: "
-        for exit in self.exits.keys():
+        for exit in self.exits:
             if self.exits.get(exit) is not None:
                 exit_string += exit + ", "
         exit_string = exit_string.strip(", ")
         return exit_string
-
 
     def get_inventory(self):
         """
@@ -113,16 +108,6 @@ class Room:
         if not self.inventory:
             print("inventaire est vide ")
             return
-        inventory_description="\n".join(f"\t- {item.name}: {item.description} ({item.weight} kg)" for item in self.inventory.values())
-
-
-    def get_pnj(self):
-        """dcc
-        """
-        if not self.pnj:
-            print("il n'y a pas de pnj ici")
-            return
-        pnj_description = "\n".join(f"{character.name_pnj}, {character.description_pnj}, [{character.msg_pnj}]" for pnj in self.pnj.values())
 
     def look(self):
         """
@@ -136,10 +121,9 @@ class Room:
                 print(f"{item.name}: {item.description} (Poids: {item.weight}kg)")
         else:
             print("\nIl n'y a aucun objet ici.")
-        
         if self.pnj:
             print("\nIl y a un PNJ dans cette pièce :")
             for character in self.pnj.values():
-                print(f"{character.name}, {character.description_pnj}") #[{character.msgs}]
+                print(f"{character.name}, {character.description_pnj}")
         else:
             print("\nIl n'y a personne ici. Vos lunettes sont sans doutes sales")

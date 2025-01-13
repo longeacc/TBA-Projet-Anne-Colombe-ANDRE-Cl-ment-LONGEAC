@@ -1,4 +1,4 @@
-# Define the Player class.
+"""Define the Player class."""
 class Player():
     """
     Classe Player qui gère les actions et l'état du joueur dans le jeu.
