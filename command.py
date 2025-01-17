@@ -45,4 +45,4 @@ class Command:
         Returns:
             str: A formatted string displaying the command word and its description.
         """
-        return f"{self.command_word}: {self:help_string}"
+        return f"{self.command_word}: {self.help_string}"

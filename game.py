@@ -11,7 +11,7 @@ from command import Command
 from actions import Actions
 from item import Item
 from character import Character
-DEBUG = True
+DEBUG = False
 
 class Game:
     """ 
@@ -157,7 +157,7 @@ class Game:
         cave6.inventory["bouclier"]=bouclier
 
         cle = Item ("cle", "une cle mais pour ouvrir quoi ?", 1)
-        cave6.inventory["cle"]=cle
+        cave5.inventory["cle"]=cle
 
         pince = Item ("pince", "une pince à linge pour couper la respiration de n'importe qui",1)
         cave3.inventory["pince"]=pince

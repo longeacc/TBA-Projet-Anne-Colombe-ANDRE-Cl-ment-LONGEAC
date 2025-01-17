@@ -230,7 +230,6 @@ class Actions:
         Returns:
             bool: True if the command was executed successfully, False otherwise.
 
-
         """
         # Afficher la description de la pièce actuelle
         player = game.player
@@ -257,7 +256,6 @@ class Actions:
 
         Returns:
             bool: True if the command was executed successfully, False otherwise.
-
 
         """
         player = game.player
@@ -292,9 +290,8 @@ class Actions:
 
         Returns:
             bool: True if the command was executed successfully, False otherwise.
-
-
         """
+
         player = game.player
         current_room = player.current_room
 

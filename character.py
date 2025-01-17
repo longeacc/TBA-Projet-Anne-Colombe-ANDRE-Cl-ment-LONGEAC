@@ -45,7 +45,7 @@ class Character :
         """
     Le PNJ a une chance sur deux de se déplacer vers une pièce adjacente ou de rester sur place.
         """
-        from gameacnotre import DEBUG
+        from game import DEBUG
 
         # Liste des pièces adjacentes
         adjacent_rooms = list(self.current_room.exits.values())
